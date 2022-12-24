@@ -4,7 +4,7 @@ services:
   env: python
   repo: https://github.com/raymin0404/Simple-Chatbot.git
   buildCommand: pip install graphviz;pip install gunicorn -r requirements.txt
-  startCommand: gunicorn app:app
+  startCommand: python app.py
   plan: free
   autoDeploy: false
   envVars:

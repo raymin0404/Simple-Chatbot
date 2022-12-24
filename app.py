@@ -11,60 +11,10 @@ from utils import send_text_message
 # os.environ['PATH'] +=os.pathsep +r'./windows_10_msbuild_Release_graphviz-7.0.5-win32/Graphviz/bin'
 
 # load_dotenv()
+hash_map = dict()
 
-main_url = 'https://862a-111-254-3-40.jp.ngrok.io'
+main_url = 'https://simple-chatbot.onrender.com'
 
-machine = TocMachine(
-    states=["user", "LUCK", "BMI_Input_weight","BMI_Input_height","BMI_result","RPC_choice","RPC_result"],
-    transitions=[
-        #Intialize
-        {
-            "trigger": "advance",
-            "source": "user",
-            "dest": "LUCK",
-            "conditions": "is_going_to_luck",
-        },
-        {
-            "trigger": "advance",
-            "source": "user",
-            "dest": "BMI_Input_weight",
-            "conditions": "is_going_to_BMI_Input_weight",
-        },
-        {
-            "trigger": "advance",
-            "source": "BMI_Input_weight",
-            "dest": "BMI_Input_height",
-            "conditions": "is_going_to_BMI_Input_height",
-        },
-        {
-            "trigger": "advance",
-            "source": "BMI_Input_height",
-            "dest": "BMI_result",
-            "conditions": "is_going_to_BMI_result",
-        },
-        {
-            "trigger": "advance",
-            "source": "user",
-            "dest": "RPC_choice",
-            "conditions": "is_going_to_RPC_choice",
-        },
-        {
-            "trigger": "advance",
-            "source": "RPC_choice",
-            "dest": "RPC_result",
-            "conditions": "is_going_to_RPC_result",
-        },
-        {
-            "trigger": "advance", 
-            "source": ["LUCK", "BMI_Input_weight","BMI_Input_height","BMI_result","RPC_choice","RPC_result"], 
-            "dest": "user",
-            "conditions": "back",
-        }
-    ],
-    initial = "user",
-    auto_transitions = False,
-    show_conditions = True,
-)
 app = Flask(__name__, static_url_path="")
 
 
@@ -91,6 +41,64 @@ def webhook_handler():
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info(f"Request body: {body}")
+
+    import json
+
+    data = json.loads(body)
+
+    userId = data['events'][0]['source']['userId']
+
+    machine = hash_map.setdefault(userId,TocMachine(
+        states=["user", "LUCK", "BMI_Input_weight","BMI_Input_height","BMI_result","RPC_choice","RPC_result"],
+        transitions=[
+            #Intialize
+            {
+                "trigger": "advance",
+                "source": "user",
+                "dest": "LUCK",
+                "conditions": "is_going_to_luck",
+            },
+            {
+                "trigger": "advance",
+                "source": "user",
+                "dest": "BMI_Input_weight",
+                "conditions": "is_going_to_BMI_Input_weight",
+            },
+            {
+                "trigger": "advance",
+                "source": "BMI_Input_weight",
+                "dest": "BMI_Input_height",
+                "conditions": "is_going_to_BMI_Input_height",
+            },
+            {
+                "trigger": "advance",
+                "source": "BMI_Input_height",
+                "dest": "BMI_result",
+                "conditions": "is_going_to_BMI_result",
+            },
+            {
+                "trigger": "advance",
+                "source": "user",
+                "dest": "RPC_choice",
+                "conditions": "is_going_to_RPC_choice",
+            },
+            {
+                "trigger": "advance",
+                "source": "RPC_choice",
+                "dest": "RPC_result",
+                "conditions": "is_going_to_RPC_result",
+            },
+            {
+                "trigger": "advance", 
+                "source": ["LUCK", "BMI_Input_weight","BMI_Input_height","BMI_result","RPC_choice","RPC_result"], 
+                "dest": "user",
+                "conditions": "back",
+            }
+        ],
+        initial = "user",
+        auto_transitions = False,
+        show_conditions = True,
+    ))
 
     # parse webhook body
     try:
