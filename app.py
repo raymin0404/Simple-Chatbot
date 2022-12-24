@@ -8,13 +8,13 @@ from linebot.models import MessageTemplateAction,CarouselColumn,MessageEvent, Te
 from utils import send_button_message, send_carousel_message, send_image_message, send_text_message,send_text_multiple_message,send_video_message
 from fsm import TocMachine
 from utils import send_text_message
-# os.environ['PATH'] +=os.pathsep +r'./windows_10_msbuild_Release_graphviz-7.0.5-win32/Graphviz/bin'
+os.environ['PATH'] +=os.pathsep +r'./windows_10_msbuild_Release_graphviz-7.0.5-win32/Graphviz/bin'
 
 # load_dotenv()
 hash_map = dict()
 
 main_url = 'https://simple-chatbot.onrender.com'
-
+# main_url = 'https://aff6-111-254-3-40.jp.ngrok.io'
 app = Flask(__name__, static_url_path="")
 
 
@@ -152,12 +152,8 @@ def webhook_handler():
 @app.route('/show-fsm/<userID>', methods=["GET"])
 def show_fsm(userID):
     machine = hash_map.get(userID)
-    machine.get_graph().draw("fsm.png", prog="dot", format="png")
-    return send_file("fsm.png", mimetype="image/png")
-# def show_fsm():
-    # machine.get_graph().draw("fsm.png", prog="dot", format="png")
-    # return send_file("fsm.png", mimetype="image/png")
-
+    machine.get_graph().draw(f"img/fsm{userID}.png", prog="dot", format="png")
+    return send_from_directory('img',f'fsm{userID}.png', as_attachment=True)
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 8000)
