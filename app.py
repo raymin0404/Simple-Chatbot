@@ -8,7 +8,7 @@ from linebot.models import MessageTemplateAction,CarouselColumn,MessageEvent, Te
 from utils import send_button_message, send_carousel_message, send_image_message, send_text_message,send_text_multiple_message,send_video_message
 from fsm import TocMachine
 from utils import send_text_message
-os.environ['PATH'] +=os.pathsep +r'./windows_10_msbuild_Release_graphviz-7.0.5-win32/Graphviz/bin'
+# os.environ['PATH'] +=os.pathsep +r'./windows_10_msbuild_Release_graphviz-7.0.5-win32/Graphviz/bin'
 
 # load_dotenv()
 
@@ -85,7 +85,7 @@ parser = WebhookParser(channel_secret)
 def meme():
     filename = '1671863442214.png'
     return send_from_directory('img',filename, as_attachment=True)
-@app.route("/", methods=["POST"])
+@app.route("/callback", methods=["POST"])
 def webhook_handler():
     signature = request.headers["X-Line-Signature"]
     # get request body as text
