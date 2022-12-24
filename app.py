@@ -8,7 +8,7 @@ from linebot.models import MessageTemplateAction,CarouselColumn,MessageEvent, Te
 from utils import send_button_message, send_carousel_message, send_image_message, send_text_message,send_text_multiple_message,send_video_message
 from fsm import TocMachine
 from utils import send_text_message
-os.environ['PATH'] +=os.pathsep +r'./windows_10_msbuild_Release_graphviz-7.0.5-win32/Graphviz/bin'
+# os.environ['PATH'] +=os.pathsep +r'./windows_10_msbuild_Release_graphviz-7.0.5-win32/Graphviz/bin'
 
 main_url = 'https://9fd5-111-254-3-40.jp.ngrok.io'
 
@@ -141,8 +141,10 @@ def webhook_handler():
 
 @app.route("/show-fsm", methods=["GET"])
 def show_fsm():
-    machine.get_graph().draw("fsm.png", prog="dot", format="png")
     return send_file("fsm.png", mimetype="image/png")
+# def show_fsm():
+#     machine.get_graph().draw("fsm.png", prog="dot", format="png")
+    # return send_file("fsm.png", mimetype="image/png")
 
 
 if __name__ == "__main__":
