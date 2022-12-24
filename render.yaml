@@ -3,8 +3,8 @@ services:
   name: Simple-Chatbot
   env: python
   repo: https://github.com/raymin0404/Simple-Chatbot.git
-  buildCommand: cd examples/flask-echo;pip install gunicorn -r requirements.txt
-  startCommand: cd examples/flask-echo;gunicorn app:app
+  buildCommand: pip install graphviz;pip install gunicorn -r requirements.txt
+  startCommand: gunicorn app:app
   plan: free
   autoDeploy: false
   envVars:
