@@ -120,7 +120,7 @@ def webhook_handler():
         if response == False:
             # send_text_message(event.reply_token, "Not Entering any State")
             if event.message.text == 'fsm圖':
-                send_image_message(event.reply_token, f'{main_url}/show-fsm')
+                send_image_message(event.reply_token, f'{main_url}/show-fsm/{userId}')
             else:
                 print('還在user')
                 title = '請選擇想要的功能'
@@ -149,8 +149,9 @@ def webhook_handler():
     return "OK"
 
 
-@app.route("/show-fsm", methods=["GET"])
-def show_fsm():
+@app.route('/show-fsm/<userID>', methods=["GET"])
+def show_fsm(userID):
+    machine = hash_map.get(userID)
     machine.get_graph().draw("fsm.png", prog="dot", format="png")
     return send_file("fsm.png", mimetype="image/png")
 # def show_fsm():
