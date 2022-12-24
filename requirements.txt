@@ -1,4 +1,4 @@
-Flask==1.1.4
+Flask==2.2.2
 line_bot_sdk==2.3.0
 python-dotenv==0.21.0
 transitions==0.9.0
