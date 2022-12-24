@@ -155,6 +155,12 @@ def show_fsm(userID):
     machine.get_graph().draw(f"img/fsm{userID}.png", prog="dot", format="png")
     return send_from_directory('img',f'fsm{userID}.png', as_attachment=True)
 
+
+
+
 if __name__ == "__main__":
+    from gevent import pywsgi  
+
     port = os.environ.get("PORT", 8000)
-    app.run(host="0.0.0.0", port=port, debug=True)
+    server = pywsgi.WSGIServer(('0.0.0.0',int(port)),app)
+    server.serve_forever()
