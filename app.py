@@ -10,11 +10,11 @@ from fsm import TocMachine
 from utils import send_text_message
 os.environ['PATH'] +=os.pathsep +r'./windows_10_msbuild_Release_graphviz-7.0.5-win32/Graphviz/bin'
 
-# load_dotenv()
+load_dotenv()
 hash_map = dict()
 
 main_url = 'https://simple-chatbot.onrender.com'
-# main_url = 'https://aff6-111-254-3-40.jp.ngrok.io'
+# main_url = 'https://d029-111-254-3-40.jp.ngrok.io'
 app = Flask(__name__, static_url_path="")
 
 
@@ -120,7 +120,7 @@ def webhook_handler():
         if response == False:
             # send_text_message(event.reply_token, "Not Entering any State")
             if event.message.text == 'fsm圖':
-                send_image_message(event.reply_token, f'{main_url}/show-fsm/{userId}')
+                send_image_message(event.reply_token, f'{main_url}/show-fsm')
             else:
                 print('還在user')
                 title = '請選擇想要的功能'
@@ -149,18 +149,18 @@ def webhook_handler():
     return "OK"
 
 
-@app.route('/show-fsm/<userID>', methods=["GET"])
-def show_fsm(userID):
-    machine = hash_map.get(userID)
-    machine.get_graph().draw(f"img/fsm{userID}.png", prog="dot", format="png")
-    return send_from_directory('img',f'fsm{userID}.png', as_attachment=True)
+@app.route('/show-fsm', methods=["GET"])
+def show_fsm():
+    # machine = hash_map.get(userID)
+    # machine.get_graph().draw(f"img/{userID}.png", prog="dot", format="png")
+    return send_from_directory('img',f'default.png', as_attachment=True)
 
 
 
 
 if __name__ == "__main__":
-    from gevent import pywsgi  
-
+    # from gevent import pywsgi  
     port = os.environ.get("PORT", 8000)
-    server = pywsgi.WSGIServer(('0.0.0.0',int(port)),app)
-    server.serve_forever()
+    # server = pywsgi.WSGIServer(('0.0.0.0',int(port)),app)
+    # server.serve_forever()
+    app.run(host="0.0.0.0", port=port, debug=True)

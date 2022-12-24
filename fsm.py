@@ -8,7 +8,7 @@ from utils import BMI
 from utils import RPC
 
 main_url = 'https://simple-chatbot.onrender.com'
-# main_url = 'https://aff6-111-254-3-40.jp.ngrok.io'
+# main_url = 'https://d029-111-254-3-40.jp.ngrok.io'
 
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
