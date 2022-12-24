@@ -2,7 +2,6 @@ from transitions.extensions import GraphMachine
 from utils import send_text_message
 from linebot.models import MessageAction,URIAction,MessageTemplateAction,CarouselColumn,MessageEvent, TextMessage, TextSendMessage,URIAction,MessageAction
 from utils import send_button_message, send_carousel_message, send_image_message, send_text_message,send_text_multiple_message,send_video_message
-from spider import Movie
 import random
 from utils import LUCK
 from utils import BMI

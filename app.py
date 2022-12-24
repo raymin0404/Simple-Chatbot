@@ -9,7 +9,7 @@ from utils import send_button_message, send_carousel_message, send_image_message
 from fsm import TocMachine
 from utils import send_text_message
 os.environ['PATH'] +=os.pathsep +r'./windows_10_msbuild_Release_graphviz-7.0.5-win32/Graphviz/bin'
-load_dotenv()
+
 main_url = 'https://9fd5-111-254-3-40.jp.ngrok.io'
 
 machine = TocMachine(
