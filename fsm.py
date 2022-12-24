@@ -7,7 +7,7 @@ from utils import LUCK
 from utils import BMI
 from utils import RPC
 
-main_url = 'https://9fd5-111-254-3-40.jp.ngrok.io'
+main_url = 'https://862a-111-254-3-40.jp.ngrok.io'
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.weight = -1
